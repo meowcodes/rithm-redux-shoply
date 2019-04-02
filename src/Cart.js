@@ -62,7 +62,7 @@ class Cart extends Component {
       }
     }
 
-    let finalPrice = (totalPrice * this.state.promo * (1 + SALES_TAX)).toFixed(2);
+    let finalPrice = ((totalPrice * this.state.promo) + (totalPrice * SALES_TAX)).toFixed(2);
 
     return (
       <div className="ItemList">
