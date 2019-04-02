@@ -10,6 +10,7 @@ class Cart extends Component {
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
   }
+
   addToCart(id) {
     this.props.add(id);
   }
@@ -19,10 +20,10 @@ class Cart extends Component {
   }
 
   render() {
-    let idArr = Object.keys(this.props.cart);
+    let idArr = new Set(Object.keys(this.props.cart));
 
     let cartItems = this.props.items
-      .filter(item => idArr.includes(item.id.toString()))
+      .filter(item => idArr.has(item.id.toString()))
       .map( item => (
         <CartItem
           key={item.id}

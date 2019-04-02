@@ -13,9 +13,7 @@ describe('reducer', function() {
     }
   
     let state = rootReducer(initialState, action);
-    expect(state).toEqual({
-      cart: { 2:2, 3:4 }
-    });
+    expect(state).toEqual(initialState);
   });
 
   it("adds a new item to state", function() {
@@ -88,8 +86,6 @@ describe('reducer', function() {
     }
   
     let state = rootReducer(initialState, action);
-    expect(state).toEqual({
-      cart: {}
-    });
+    expect(state).toEqual(initialState);
   });
 })
