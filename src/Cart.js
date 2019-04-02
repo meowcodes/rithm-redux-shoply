@@ -10,7 +10,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      promo: null,
+      promo: 1,
       error: null
     };
     this.addToCart = this.addToCart.bind(this);
@@ -27,7 +27,7 @@ class Cart extends Component {
   }
 
   togglePromo(input) {
-    if (this.state.promo) {
+    if (this.state.promo !== 1) {
       this.setState({ error: "ONLY ONE PROMO AT A TIME!" });
     } else {
       if (input === "REMOVE10") {
@@ -42,27 +42,34 @@ class Cart extends Component {
 
   render() {
     const idArr = new Set(Object.keys(this.props.cart));
+    let totalPrice = 0;
+    const cartItems = []
+    for(let item of this.props.items){
+      if(idArr.has(item.id.toString())){
+        totalPrice += item.price * this.props.cart[item.id];
+        cartItems.push(
+          <CartItem
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            count={this.props.cart[item.id]}
+            price={item.price * this.props.cart[item.id]}
+            imageUrl={item.image_url}
+            triggerAdd={this.addToCart}
+            triggerRemove={this.removeFromCart}
+          />
+        );
+      }
+    }
 
-    const cartItems = this.props.items
-      .filter(item => idArr.has(item.id.toString()))
-      .map(item => (
-        <CartItem
-          key={item.id}
-          id={item.id}
-          name={item.name}
-          count={this.props.cart[item.id]}
-          price={item.price * this.props.cart[item.id]}
-          imageUrl={item.image_url}
-          triggerAdd={this.addToCart}
-          triggerRemove={this.removeFromCart}
-        />
-      ));
+    let finalPrice = (totalPrice * this.state.promo * (1 + SALES_TAX)).toFixed(2);
 
     return (
       <div className="ItemList">
         {cartItems}
         <PromoForm triggerPromo={this.togglePromo} />
         {this.state.error}
+        <p>Total Price: {finalPrice}</p>
       </div>
     );
   }
