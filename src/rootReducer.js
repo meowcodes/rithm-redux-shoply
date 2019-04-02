@@ -4,7 +4,7 @@ const INITIAL_STATE = { cart: {} };
 
 function rootReducer(state = INITIAL_STATE, action) {
   console.log("IN REDUCER", state, action);
-  const currId = action.payload ? action.payload.id + "" : null;
+  const currId = action.payload ? action.payload.id : null;
 
   switch (action.type) {
     case ADD:
@@ -20,7 +20,7 @@ function rootReducer(state = INITIAL_STATE, action) {
         let currCount = state.cart[currId]
         return { cart: {...state.cart, [currId]: currCount - 1 }}
       }else {
-        let currCart = state.cart;
+        let currCart = {...state.cart};
         delete currCart[currId];
         return { cart: currCart};
       }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CartItem from "./CartItem";
 import { connect } from "react-redux";
 import { add, remove } from "./actions";
 
@@ -11,33 +12,36 @@ class Cart extends Component {
   }
   addToCart(id) {
     this.props.add(id);
-    console.log("in add from cart", this.props.cart);
   }
 
   removeFromCart(id) {
     this.props.remove(id);
-    console.log("in remove from cart", this.props.cart);
   }
 
   render() {
-    for( let key in this.props.cart ){
-        
-    }
+    let idArr = Object.keys(this.props.cart);
 
-    let cartItems = this.props.cart.map(item => (
-      <CartItem
-        key={item.id}
-        id={item.id}
-        name={item.name}
-        price={item.price}
-        imageUrl={item.image_url}
-        triggerAdd={this.addToCart}
-        triggerRemove={this.removeFromCart}
-      />
-    ));
-    
-
-    return <div className="ItemList">{cartItems}</div>;
+    let cartItems = this.props.items
+      .filter(item => idArr.includes(item.id.toString()))
+      .map( item => (
+        <CartItem
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          count={ this.props.cart[item.id] }
+          price={item.price * this.props.cart[item.id]}
+          imageUrl={item.image_url}
+          triggerAdd={this.addToCart}
+          triggerRemove={this.removeFromCart}
+        />
+      )
+    );
+  
+    return (
+      <div className="ItemList">
+        {cartItems}
+      </div>
+    );
   }
 }
 
