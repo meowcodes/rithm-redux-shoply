@@ -9,11 +9,11 @@ class Item extends Component {
   }
 
   handleAdd() {
-    this.triggerAdd(this.props.id);
+    this.props.triggerAdd(this.props.id);
   }
 
   handleRemove() {
-    this.triggerRemove(this.props.id);
+    this.props.triggerRemove(this.props.id);
   }
 
   render() {
