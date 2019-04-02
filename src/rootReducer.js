@@ -3,7 +3,6 @@ const INITIAL_STATE = { cart: {} };
 
 
 function rootReducer(state = INITIAL_STATE, action) {
-  console.log("IN REDUCER", state, action);
   const currId = action.payload ? action.payload.id : null;
 
   switch (action.type) {
