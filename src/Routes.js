@@ -8,8 +8,8 @@ class Routes extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path='/' render={() => <ItemList  items={items}/> } />
-                <Route exact path='/cart' render={() => <Cart  /> } />
+                <Route exact path='/' render={() => <ItemList  items={items} /> } />
+                <Route exact path='/cart' render={() => <Cart  items={items} /> } />
                 <Redirect to='/' />
             </Switch>
         );
