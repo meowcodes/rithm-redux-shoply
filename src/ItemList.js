@@ -31,7 +31,6 @@ class ItemList extends Component {
     return (
       <div className="ItemList">
         { items }
-        <button><Link to="/cart">CART</Link></button>
       </div>
     );
   }
