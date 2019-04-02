@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Item from "./Item";
+import { connect } from 'react-redux';
+import { add, remove } from './actions';
 
 
 class ItemList extends Component {
@@ -13,12 +15,15 @@ class ItemList extends Component {
   }
 
   addToCart(id) {
-    console.log("ADD", id);
+   this.props.add(id);
+   console.log('in add from cart',this.props.cart);
   }
 
   removeFromCart(id) {
-    console.log("Remove", id);
+    this.props.remove(id);
+    console.log('in remove from cart',this.props.cart);
   }
+  
 
   render() {
     let items = this.props.items.map( item => 
@@ -33,4 +38,13 @@ class ItemList extends Component {
   }
 }
 
-export default ItemList;
+function mapStateToProps(state){
+  return { cart: state.cart }
+}
+
+const mapDispatchToProps = {
+  add,
+  remove
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList);

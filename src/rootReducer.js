@@ -13,12 +13,13 @@ function rootReducer(state = INITIAL_STATE, action) {
 
     case REMOVE:
       let itemIndex = state.cart.indexOf(action.payload.id);
-
-      let removeItem = [
-        ...state.cart.slice(0, itemIndex),
-        ...state.cart.slice(itemIndex + 1)
-      ];
-      return { cart: removeItem };
+      if(itemIndex !== -1){
+        let removeItem = [
+          ...state.cart.slice(0, itemIndex),
+          ...state.cart.slice(itemIndex + 1)
+        ];
+        return { cart: removeItem };
+      }
 
     default:
       return state;
